@@ -27,11 +27,12 @@ public interface UploadedFileRepository extends JpaRepository<UploadedFileModel,
 
 	
 
+
 	/**
-	 * Gets the trending videos.
+	 * Gets the trending photos.
 	 *
-	 * @return the trending videos
+	 * @return the trending photos
 	 */
-	@Query(value = "SELECT * FROM tbl_uploaded_file ORDER BY RAND() LIMIT 1", nativeQuery = true)
-	UploadedFileModel getTrendingVideos();
+	@Query(value = "SELECT * FROM tbl_uploaded_file where fld_file_type = '1' ORDER BY RAND() LIMIT 1", nativeQuery = true)
+	UploadedFileModel getTrendingPhotos();
 }

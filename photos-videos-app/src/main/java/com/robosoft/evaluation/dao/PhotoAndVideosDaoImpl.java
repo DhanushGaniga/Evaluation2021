@@ -225,15 +225,16 @@ public  class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		}
 	}
 
+	
 	/**
-	 * Gets the trending videos.
+	 * Gets the trending photos.
 	 *
-	 * @return the trending videos
+	 * @return the trending photos
 	 */
 	@Override
-	public UploadedFileModel getTrendingVideos() {
+	public UploadedFileModel getTrendingPhotos() {
 		try {
-			 return uploadedFileRepository.getTrendingVideos();
+			 return uploadedFileRepository.getTrendingPhotos();
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new DboperationFailedException(AppConstants.DB_OPERATION_FAILED, ErrorCodes.DB_OPERATION_FAILED_MESSAGE);

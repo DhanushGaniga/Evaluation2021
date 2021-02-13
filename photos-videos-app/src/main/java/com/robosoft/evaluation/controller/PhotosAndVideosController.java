@@ -160,6 +160,7 @@ public class PhotosAndVideosController {
 		return userService.getToFavourite(userId);
 	}
 	
+	
 	/**
 	 * Gets the trending videos.
 	 *
@@ -169,7 +170,7 @@ public class PhotosAndVideosController {
 	@PostMapping(value="/getTrendingVideos")
 	public ResponseEntity<GenericServerResponse> getTrendingVideos()
 	{
-		return photosAndVideosService.getTrendingVideos();
+		return photosAndVideosService.getTrendingPhotos();
 	}
 	
 }

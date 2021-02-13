@@ -163,10 +163,15 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 		return commonServiceImpl.generateSuccessResponse(returnValue);
 	}
 
+	/**
+	 * Gets the trending photos.
+	 *
+	 * @return the trending photos
+	 */
 	@Override
-	public ResponseEntity<GenericServerResponse> getTrendingVideos() {
+	public ResponseEntity<GenericServerResponse> getTrendingPhotos() {
 		FileReturnValue returnData = new FileReturnValue();
-		UploadedFileModel entity = photoAndVideosDao.getTrendingVideos();
+		UploadedFileModel entity = photoAndVideosDao.getTrendingPhotos();
 		if(entity == null) {
 			commonServiceImpl.generateSuccessResponse(returnData);
 		}

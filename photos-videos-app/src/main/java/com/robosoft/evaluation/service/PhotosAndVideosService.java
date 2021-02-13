@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.robosoft.evaluation.dto.response.GenericServerResponse;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface PhotosAndVideosService.
  */
@@ -49,11 +50,12 @@ public interface PhotosAndVideosService {
 	 */
 	ResponseEntity<GenericServerResponse> getVideos(String id, int pageNum);
 	
+
 	/**
-	 * Gets the trending videos.
+	 * Gets the trending photos.
 	 *
-	 * @return the trending videos
+	 * @return the trending photos
 	 */
-	ResponseEntity<GenericServerResponse> getTrendingVideos();
+	ResponseEntity<GenericServerResponse> getTrendingPhotos();
 
 }
