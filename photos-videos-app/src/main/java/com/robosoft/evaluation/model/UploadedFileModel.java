@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -47,7 +49,8 @@ public class UploadedFileModel {
 	@Column(name = "fld_uploaded_time")
 	private Date createdTime;
 	
-	@Column(name = "fld_uploaded_by")
-	private String uploadedBy;
+	@ManyToOne
+	@JoinColumn(name = "fld_uploaded_by")
+	private UserDetailModel uploadedBy;
 
 }

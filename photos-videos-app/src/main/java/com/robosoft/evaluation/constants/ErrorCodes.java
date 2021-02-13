@@ -9,6 +9,6 @@ public class ErrorCodes {
 	public static final ResultInfo GENERAL_EXCEPTION = new ResultInfo(INTERNAL_SERVER_ERROR_CODE, INTERNAL_SERVER_ERROR);
 	public static final String SUCCESS_MESSAGE = "Success";
 	public static final String UPLOAD_FAILED_MESSAGE = "Error while saving file" ;
-	
+	public static final String FETCH_DATA_FAILED_MESSAGE = "Error while fetching file" ;
 
 }

@@ -33,7 +33,7 @@ public class UserDetailModel {
 	private String name;
 	
 	@Column(name = "fld_user_id")
-	private String email;
+	private String emailId;
 
 	@Column(name = "mobile")
 	private String mobileNo;
@@ -41,8 +41,7 @@ public class UserDetailModel {
 	@Column(name = "password")
 	private String password;
 	
-	
-	// @Column(name = "profileUrl")
-	// private String profileUrl;
+	@Column(name = "profileUrl")
+	private String profileUrl;
 
 }

@@ -39,14 +39,14 @@ public class PhotosAndVideosController {
 	
 	@ApiOperation(value = "get Photos api", response = GenericServerResponse.class)
 	@GetMapping(value = "/getPhotos")
-	public ResponseEntity<GenericServerResponse> getPhotos(@RequestParam String id){	
-		return photosAndVideosService.getPhotos(id);	
+	public ResponseEntity<GenericServerResponse> getPhotos(@RequestParam String id, @RequestParam int pageNum){	
+		return photosAndVideosService.getPhotos(id, pageNum);	
 	}
 	
 	@ApiOperation(value = "get video api", response = GenericServerResponse.class)
-	@GetMapping(value = "/getPhotos")
-	public ResponseEntity<GenericServerResponse> getVideos(@RequestParam String id){	
-		return photosAndVideosService.getVideos( id);	
+	@GetMapping(value = "/getVideos")
+	public ResponseEntity<GenericServerResponse> getVideos(@RequestParam String id,  @RequestParam int pageNum){	
+		return photosAndVideosService.getVideos( id, pageNum);	
 	}
 
 }

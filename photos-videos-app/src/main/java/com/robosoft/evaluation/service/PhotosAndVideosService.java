@@ -11,8 +11,8 @@ public interface PhotosAndVideosService {
 	
 	ResponseEntity<GenericServerResponse> saveVideo(MultipartFile imageFile, String category, String id);
 	
-	ResponseEntity<GenericServerResponse> getPhotos(String id);
+	ResponseEntity<GenericServerResponse> getPhotos(String id, int pageNum);
 	
-	ResponseEntity<GenericServerResponse> getVideos(String id);
+	ResponseEntity<GenericServerResponse> getVideos(String id, int pageNum);
 
 }
