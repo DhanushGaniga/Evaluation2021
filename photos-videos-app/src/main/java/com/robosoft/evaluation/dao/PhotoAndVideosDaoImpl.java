@@ -18,10 +18,11 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 	private UploadedFileRepository uploadedFileRepository;
 
 	@Override
-	public UploadedFileModel saveFile(String category, String path, String fileName, Integer type) {
+	public UploadedFileModel saveImage(String category, String path, String fileName, String id) {
 		try {
 			UploadedFileModel uploadedeFile = UploadedFileModel.builder().fileName(fileName)
-					.filePath(path).fileType(type).category(category)
+					.filePath(path).fileType(1).category(category)
+					.uploadedBy(id)
 					.createdTime(new Date()).build();
 			return uploadedFileRepository.save(uploadedeFile);
 		}catch (Exception e) {
@@ -29,6 +30,20 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 			throw new DboperationFailedException(AppConstants.DB_OPERATION_FAILED, ErrorCodes.UPLOAD_FAILED_MESSAGE);
 		}
 		
+	}
+
+	@Override
+	public UploadedFileModel saveVideo(String category, String path, String fileName, String id) {
+		try {
+			UploadedFileModel uploadedeFile = UploadedFileModel.builder().fileName(fileName)
+					.filePath(path).fileType(2).category(category)
+					.uploadedBy(id)
+					.createdTime(new Date()).build();
+			return uploadedFileRepository.save(uploadedeFile);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DboperationFailedException(AppConstants.DB_OPERATION_FAILED, ErrorCodes.UPLOAD_FAILED_MESSAGE);
+		}
 	}
 
 }

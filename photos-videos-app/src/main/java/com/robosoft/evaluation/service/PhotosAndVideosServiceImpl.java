@@ -1,5 +1,6 @@
 package com.robosoft.evaluation.service;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,12 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.robosoft.evaluation.constants.AppConstants;
 import com.robosoft.evaluation.dao.PhotoAndVideosDao;
 import com.robosoft.evaluation.dto.response.GenericServerResponse;
 import com.robosoft.evaluation.exception.UploadFailedException;
 
+import lombok.extern.log4j.Log4j2;
+
 
 @Service
+@Log4j2
 public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 	
 	@Autowired
@@ -24,19 +29,17 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 	private CommonServiceImpl commonServiceImpl;
 
 	@Override
-	public ResponseEntity<GenericServerResponse> saveImage(MultipartFile imageFile, String category) {
-		String folderName = "\\Photos\\";
-		String path = saveFile(folderName, imageFile);
-		photoAndVideosDao.saveFile(category, path, imageFile.getOriginalFilename(), 1);
+	public ResponseEntity<GenericServerResponse> saveImage(MultipartFile imageFile, String category, String id) {
+		String path = saveFile(AppConstants.IMAGE_PATH, imageFile);
+		photoAndVideosDao.saveImage(category, path, imageFile.getOriginalFilename(), id);
 		
 		return commonServiceImpl.generateSuccessResponse(null);
 	}
 
 	@Override
-	public ResponseEntity<GenericServerResponse> saveVideo(MultipartFile videoFile, String category) {
-		String folderName = "\\Videos\\";
-		String path = saveFile(folderName, videoFile);
-		photoAndVideosDao.saveFile(category, path, videoFile.getOriginalFilename(), 2);
+	public ResponseEntity<GenericServerResponse> saveVideo(MultipartFile videoFile, String category, String id) {
+		String path = saveFile(AppConstants.VIDEO_PATH, videoFile);
+		photoAndVideosDao.saveVideo(category, path, videoFile.getOriginalFilename(), id);
 		
 		return commonServiceImpl.generateSuccessResponse(null);
 	}
@@ -53,5 +56,24 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 			throw new UploadFailedException();
 		}
 	}
+
+	@Override
+	public ResponseEntity<GenericServerResponse> getPhotos(String id) {
+		try {
+            byte[] content = Files.readAllBytes(Paths.get("E:\\Photos\\download.jpg"));
+            System.out.println(new String(content));
+
+           return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		 return null;
+	}
+
+	@Override
+	public ResponseEntity<GenericServerResponse> getVideos(String id) {
+		return null;
+	}
+	
 
 }
