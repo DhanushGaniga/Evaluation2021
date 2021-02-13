@@ -1,0 +1,100 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.2.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id 'com.google.cloud.tools.jib' version '1.2.0'
+	id 'eu.davidea.grabver' version '1.0.1'
+}
+
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+apply plugin: 'eu.davidea.grabver'
+
+
+group = 'com.robosoft.evaluation'
+version = versioning.name
+sourceCompatibility = '1.8'
+apply plugin: 'application'
+mainClassName = "com.robosoft.evaluation.Application"
+
+versioning {
+	major 0
+	minor 0
+	saveOn "bootDistZip"
+}
+
+springBoot {
+	buildInfo()
+}
+
+configurations {
+	// to exclude default logging
+	compile.exclude module: 'spring-boot-starter-logging'
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile "joda-time:joda-time"
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compile group: 'org.springframework', name: 'spring-orm', version: '5.2.0.RELEASE'
+	implementation 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.1.2.RELEASE'
+
+	//lambok
+	compileOnly 'org.projectlombok:lombok:1.18.4'
+	annotationProcessor 'org.projectlombok:lombok:1.18.4'
+	//upgrade to Junit5 from default spring-boot Junit4 version
+	testCompile "org.junit.jupiter:junit-jupiter-api:5.2.0"
+	testCompile "org.junit.jupiter:junit-jupiter-params:5.2.0"
+	testRuntime "org.junit.jupiter:junit-jupiter-engine:5.2.0"
+	testCompile "org.mockito:mockito-core:2.+"
+	testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
+	//karate
+	testCompile 'com.intuit.karate:karate-junit5:0.9.4'
+	testCompile 'com.intuit.karate:karate-apache:0.9.4'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+
+	//swagger
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	//log4j config
+	compile('org.springframework.boot:spring-boot-starter-log4j2')
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+
+	//Flyway
+	runtime group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '4.2.0'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+	compile group: 'org.apache.commons', name: 'commons-text', version: '1.8'
+
+}
+
+configurations {
+	providedRuntime
+	compile.exclude(group: 'ch.qos.logback')
+}
+
+task getVersion {
+	doFirst {
+		println 'Appversion:' + version
+	}
+}
+
+task getApplicationName {
+	doFirst {
+		println 'ApplicationName:' + rootProject.name
+	}
+}
+
