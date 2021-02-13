@@ -7,6 +7,8 @@ import com.robosoft.evaluation.dto.response.GenericServerResponse;
 
 public interface PhotosAndVideosService {
 	
-	ResponseEntity<GenericServerResponse> saveImage(MultipartFile imageFile);
+	ResponseEntity<GenericServerResponse> saveImage(MultipartFile imageFile, String category);
+	
+	ResponseEntity<GenericServerResponse> saveVideo(MultipartFile imageFile, String category);
 
 }

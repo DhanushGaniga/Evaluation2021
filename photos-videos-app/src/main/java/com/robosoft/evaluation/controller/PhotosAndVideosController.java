@@ -3,6 +3,7 @@ package com.robosoft.evaluation.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,14 @@ public class PhotosAndVideosController {
 	private PhotosAndVideosServiceImpl photosAndVideosService;
 	
 	@PostMapping(value = "/uploadImage")
-	public ResponseEntity<GenericServerResponse> uploadImage(@RequestParam MultipartFile imageFile){	
-		return photosAndVideosService.saveImage(imageFile);	
+	public ResponseEntity<GenericServerResponse> uploadImage(@RequestBody MultipartFile imageFile, @RequestParam String category){	
+		return photosAndVideosService.saveImage(imageFile, category);	
+	}
+	
+	
+	@PostMapping(value = "/uploadVideo")
+	public ResponseEntity<GenericServerResponse> uploadVideo(@RequestBody MultipartFile videoFile, @RequestParam String category){	
+		return photosAndVideosService.saveVideo(videoFile, category);	
 	}
 
 }

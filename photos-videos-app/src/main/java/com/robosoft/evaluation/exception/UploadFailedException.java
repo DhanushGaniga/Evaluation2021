@@ -15,7 +15,7 @@ public class UploadFailedException extends CustomizedException{
 	private static final long serialVersionUID = 1L;
 	
 	 public UploadFailedException() {
-	        this.resultInfo = new ResultInfo(ErrorCodes.UPLOAD_FAILED,  AppConstants.PHOTO_UPLOAD_FAILED_MESSAGE);
+	        this.resultInfo = new ResultInfo(AppConstants.UPLOAD_FAILED,  ErrorCodes.UPLOAD_FAILED_MESSAGE);
 	        this.status = HttpStatus.OK;
 	    }
 
