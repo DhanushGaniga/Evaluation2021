@@ -19,18 +19,34 @@ import com.robosoft.evaluation.repository.UploadedFileRepository;
 import com.robosoft.evaluation.repository.UserDetailRepository;
 import com.robosoft.evaluation.repository.UserFavouriteRepository;
 
+
+/**
+ * The Class PhotoAndVideosDaoImpl.
+ */
 @Component
-public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
+public  class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 	
+	/** The uploaded file repository. */
 	@Autowired
 	private UploadedFileRepository uploadedFileRepository;
 	
+	/** The user detail repository. */
 	@Autowired
 	private UserDetailRepository userDetailRepository;
 	
+	/** The user favourite repository. */
 	@Autowired
 	private UserFavouriteRepository userFavouriteRepository;
 
+	/**
+	 * Save image.
+	 *
+	 * @param category the category
+	 * @param path the path
+	 * @param fileName the file name
+	 * @param id the id
+	 * @return the uploaded file model
+	 */
 	@Override
 	public UploadedFileModel saveImage(String category, String path, String fileName, String id) {
 		try {
@@ -47,6 +63,15 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		
 	}
 
+	/**
+	 * Save video.
+	 *
+	 * @param category the category
+	 * @param path the path
+	 * @param fileName the file name
+	 * @param id the id
+	 * @return the uploaded file model
+	 */
 	@Override
 	public UploadedFileModel saveVideo(String category, String path, String fileName, String id) {
 		try {
@@ -62,6 +87,13 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		}
 	}
 
+	/**
+	 * Gets the files.
+	 *
+	 * @param type the type
+	 * @param paging the paging
+	 * @return the files
+	 */
 	@Override
 	public Page<UploadedFileModel> getFiles(Integer type, Pageable paging) {
 		try {
@@ -72,6 +104,12 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		}
 	}
 
+	/**
+	 * Find user by email.
+	 *
+	 * @param emailID the email ID
+	 * @return the user detail model
+	 */
 	@Override
 	public UserDetailModel findUserByEmail(String emailID) {
 		try {
@@ -83,6 +121,12 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param entity the entity
+	 * @return the user detail model
+	 */
 	@Override
 	public UserDetailModel save(UserDetailModel entity) {
 		try {
@@ -93,6 +137,12 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		}
 	}
 
+	/**
+	 * Gets the file.
+	 *
+	 * @param id the id
+	 * @return the file
+	 */
 	@Override
 	public Optional<UploadedFileModel> getFile(Integer id) {
 		try {
@@ -104,6 +154,13 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		
 	}
 
+	/**
+	 * Adds the favourite.
+	 *
+	 * @param files the files
+	 * @param userData the user data
+	 * @return the user favourite model
+	 */
 	@Override
 	public UserFavouriteModel addFavourite(UploadedFileModel files, UserDetailModel userData) {
 		try {
@@ -118,6 +175,13 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		}
 	}
 	
+	/**
+	 * Gets the favourite.
+	 *
+	 * @param userId the user id
+	 * @param videoOrImageId the video or image id
+	 * @return the favourite
+	 */
 	@Override
 	public UserFavouriteModel getFavourite(String userId, int videoOrImageId) {
 		try {
@@ -128,11 +192,33 @@ public class PhotoAndVideosDaoImpl implements PhotoAndVideosDao{
 		}
 	}
 
+	/**
+	 * Removes the favourite.
+	 *
+	 * @param entiry the entiry
+	 * @return the user favourite model
+	 */
 	@Override
 	public UserFavouriteModel removeFavourite(UserFavouriteModel entiry) {
 		try {
 				entiry.setFavourite(false);
 				return userFavouriteRepository.save(entiry);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DboperationFailedException(AppConstants.DB_OPERATION_FAILED, ErrorCodes.DB_OPERATION_FAILED_MESSAGE);
+		}
+	}
+
+	/**
+	 * Gets the favourite.
+	 *
+	 * @param userId the user id
+	 * @return the favourite
+	 */
+	@Override
+	public List<UserFavouriteModel> getFavourite(String userId) {
+		try {
+			 return userFavouriteRepository.getFavourite(userId);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new DboperationFailedException(AppConstants.DB_OPERATION_FAILED, ErrorCodes.DB_OPERATION_FAILED_MESSAGE);

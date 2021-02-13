@@ -12,10 +12,20 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+/**
+ * The Class SwaggerConfiguration.
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
-	  @Bean
+	  
+  	/**
+  	 * Transaction api.
+  	 *
+  	 * @return the docket
+  	 */
+  	@Bean
 	    public Docket transactionApi() {
 	        return new Docket(DocumentationType.SWAGGER_2)
 	                .select()
@@ -25,7 +35,12 @@ public class SwaggerConfiguration {
 	                .apiInfo(metaData());
 	    }
 
-	    private ApiInfo metaData() {
+	    /**
+    	 * Meta data.
+    	 *
+    	 * @return the api info
+    	 */
+    	private ApiInfo metaData() {
 	        return new ApiInfoBuilder().title("Camelot API").version("1.0.0").build();
 	    }
 }

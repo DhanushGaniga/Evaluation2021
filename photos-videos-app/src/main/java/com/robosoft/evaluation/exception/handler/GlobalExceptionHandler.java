@@ -12,12 +12,25 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * The Class GlobalExceptionHandler.
+ */
 @ControllerAdvice
+
+/** The Constant log. */
 @Slf4j
 public class GlobalExceptionHandler {
 
+    /** The Constant DEFAULT_EXCEPTION_CAUSE_FORMAT. */
     private static final String DEFAULT_EXCEPTION_CAUSE_FORMAT = "Exception : {} , Cause : {}";
 
+    /**
+     * Handle general bento exception.
+     *
+     * @param response the response
+     * @param e the e
+     * @return the response entity
+     */
     @ExceptionHandler(CustomizedException.class)
     public ResponseEntity<GenericServerResponse> handleGeneralBentoException(final HttpServletResponse response, CustomizedException e) {
         log.error(DEFAULT_EXCEPTION_CAUSE_FORMAT, e.getClass(), e.getMessage());

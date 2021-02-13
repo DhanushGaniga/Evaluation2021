@@ -1,18 +1,13 @@
 package com.robosoft.evaluation.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,19 +27,35 @@ import com.robosoft.evaluation.model.UploadedFileModel;
 import lombok.extern.log4j.Log4j2;
 
 
+/**
+ * The Class PhotosAndVideosServiceImpl.
+ */
 @Service
+
+/** The Constant log. */
 @Log4j2
 public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 	
+	/** The photo and videos dao. */
 	@Autowired
 	private PhotoAndVideosDao photoAndVideosDao;
 	
+	/** The common service impl. */
 	@Autowired
 	private CommonServiceImpl commonServiceImpl;
 	
+	/** The contect. */
 	@Autowired
 	private ServletContext contect;
 
+	/**
+	 * Save image.
+	 *
+	 * @param imageFile the image file
+	 * @param category the category
+	 * @param id the id
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<GenericServerResponse> saveImage(MultipartFile imageFile, String category, String id) {
 		String path = saveFile(AppConstants.IMAGE_PATH, imageFile);
@@ -53,6 +64,14 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 		return commonServiceImpl.generateSuccessResponse(null);
 	}
 
+	/**
+	 * Save video.
+	 *
+	 * @param videoFile the video file
+	 * @param category the category
+	 * @param id the id
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<GenericServerResponse> saveVideo(MultipartFile videoFile, String category, String id) {
 		String path = saveFile(AppConstants.VIDEO_PATH, videoFile);
@@ -61,6 +80,13 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 		return commonServiceImpl.generateSuccessResponse(null);
 	}
 	
+	/**
+	 * Save file.
+	 *
+	 * @param folderName the folder name
+	 * @param file the file
+	 * @return the string
+	 */
 	private String saveFile(String folderName, MultipartFile file) {
 		try {
 			byte[] bytes = file.getBytes();
@@ -75,6 +101,13 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 	}
 
 
+	/**
+	 * Gets the photos.
+	 *
+	 * @param id the id
+	 * @param pageNum the page num
+	 * @return the photos
+	 */
 	@Override
 	public ResponseEntity<GenericServerResponse> getPhotos(String id, int pageNum){
 		ReturnValues returnValue = new ReturnValues();
@@ -90,7 +123,7 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 				data.setFilePath(model.getFilePath());
 				data.setFileOwner(model.getUploadedBy() == null?"":model.getUploadedBy().getName());
 				data.setOwnerProfilePath(model.getUploadedBy() == null?"":model.getUploadedBy().getProfileUrl());
-				
+				data.setFileType("image/jpg");
 				files.add(data);
 			}
 		}
@@ -98,6 +131,13 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 		return commonServiceImpl.generateSuccessResponse(returnValue);
 	}
 	
+	/**
+	 * Gets the videos.
+	 *
+	 * @param id the id
+	 * @param pageNum the page num
+	 * @return the videos
+	 */
 	@Override
 	public ResponseEntity<GenericServerResponse> getVideos(String id, int pageNum) {
 		ReturnValues returnValue = new ReturnValues();
@@ -113,7 +153,7 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 				data.setFilePath(model.getFilePath());
 				data.setFileOwner(model.getUploadedBy() == null?"":model.getUploadedBy().getName());
 				data.setOwnerProfilePath(model.getUploadedBy() == null?"":model.getUploadedBy().getProfileUrl());
-				
+				data.setFileType("video/mp4");
 				files.add(data);
 			}
 		}

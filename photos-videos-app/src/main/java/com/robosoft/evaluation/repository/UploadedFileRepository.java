@@ -9,9 +9,19 @@ import org.springframework.stereotype.Repository;
 import com.robosoft.evaluation.model.UploadedFileModel;
 
 
+/**
+ * The Interface UploadedFileRepository.
+ */
 @Repository
 public interface UploadedFileRepository extends JpaRepository<UploadedFileModel, Integer>, PagingAndSortingRepository<UploadedFileModel, Integer>{
 	
+	/**
+	 * Find by file type.
+	 *
+	 * @param type the type
+	 * @param paging the paging
+	 * @return the page
+	 */
 	Page<UploadedFileModel> findByFileType(Integer type, Pageable paging);
 
 }
