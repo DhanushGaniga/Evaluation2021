@@ -39,6 +39,9 @@ public class UserDetailModel {
 	private String mobileNo;
 
 	@Column(name = "password")
+	@ColumnTransformer(forColumn = "password", 
+	read = "AES_DECRYPT( password, 'secretkey'  )",
+    write = "AES_ENCRYPT(?,'secretkey')")
 	private String password;
 	
 	@Column(name = "profileUrl")

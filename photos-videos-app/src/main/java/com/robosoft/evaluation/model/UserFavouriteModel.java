@@ -29,11 +29,14 @@ public class UserFavouriteModel {
 	@Column(name = "fld_id")
 	private Integer id;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "fld_user_id")
-//	private UserDetailModel userId;
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "fld_favourite_files")
-//	private UploadedFileModel files;
+	@ManyToOne
+	@JoinColumn(name = "fld_user_id")
+	private UserDetailModel userId;
+	
+	@ManyToOne
+	@JoinColumn(name = "fld_favourite_files")
+	private UploadedFileModel files;
+	
+	@Column(name = "fld_is_favourite")
+	private boolean favourite;
 }

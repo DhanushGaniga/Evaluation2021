@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.robosoft.evaluation.dto.request.LoginData;
+import com.robosoft.evaluation.dto.request.RegistrationDto;
 import com.robosoft.evaluation.dto.response.GenericServerResponse;
 import com.robosoft.evaluation.service.PhotosAndVideosServiceImpl;
+import com.robosoft.evaluation.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +26,9 @@ public class PhotosAndVideosController {
 	
 	@Autowired
 	private PhotosAndVideosServiceImpl photosAndVideosService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@ApiOperation(value = "Upload image api", response = GenericServerResponse.class)
 	@PostMapping(value = "/uploadImage")
@@ -48,5 +54,34 @@ public class PhotosAndVideosController {
 	public ResponseEntity<GenericServerResponse> getVideos(@RequestParam String id,  @RequestParam int pageNum){	
 		return photosAndVideosService.getVideos( id, pageNum);	
 	}
+	
+	@ApiOperation(value = "user sign up api", response = GenericServerResponse.class)
+	@PostMapping(value="/signup")
+	public ResponseEntity<GenericServerResponse> addUser(@RequestBody RegistrationDto userData)
+	{
+		return userService.addUser(userData);
+	}
 
+	@ApiOperation(value = "user sign up api", response = GenericServerResponse.class)
+	@PostMapping(value="/login")
+	public ResponseEntity<GenericServerResponse> login(@RequestBody LoginData loginData)
+	{
+		return userService.login(loginData);
+	}
+	
+	@ApiOperation(value = "add favourite api", response = GenericServerResponse.class)
+	@PostMapping(value="/addfavourites")
+	public ResponseEntity<GenericServerResponse> addFavourite( @RequestParam int videoImageId, @RequestParam String userId)
+	{
+		return userService.addToFavourite(userId, videoImageId);
+	}
+
+	@ApiOperation(value = "remove favourite api", response = GenericServerResponse.class)
+	@PostMapping(value="/removefavourites")
+	public ResponseEntity<GenericServerResponse> removeFavourite( @RequestParam int videoImageId, @RequestParam String userId)
+	{
+		return userService.removeFavourite(userId, videoImageId);
+	}
+	
+	
 }

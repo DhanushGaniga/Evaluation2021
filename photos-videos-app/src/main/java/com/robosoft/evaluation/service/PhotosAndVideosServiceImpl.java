@@ -74,44 +74,13 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 		}
 	}
 
-//	@Override
-//	public ResponseEntity<GenericServerResponse> getPhotos(String id) {
-//		ReturnValues returnValue = new ReturnValues();
-//		List<FileReturnValue> files = new ArrayList<FileReturnValue>();
-//		
-//		List<UploadedFileModel> entity = photoAndVideosDao.getFiles(1);
-//		
-//		for(UploadedFileModel model : entity) {
-//			File file = new File(model.getFilePath());
-//			if(file != null) {
-//				String encodedBase64 = null;
-//				try {
-//					FileReturnValue data = new FileReturnValue();
-//					String extension = FilenameUtils.getExtension(file.getName());
-//					FileInputStream fileInputStream = new FileInputStream(file);
-//					byte[] bytes = new byte[(int) file.length()];
-//					fileInputStream.read(bytes);
-//					encodedBase64 = Base64.getEncoder().encodeToString(bytes);
-//					data.setFile("data:image/" +extension +";base64," +encodedBase64);	
-//					
-//					fileInputStream.close();
-//					files.add(data);
-//				}catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		returnValue.setFiles(files);
-//		return commonServiceImpl.generateSuccessResponse(returnValue);
-//		
-//	}
 
 	@Override
 	public ResponseEntity<GenericServerResponse> getPhotos(String id, int pageNum){
 		ReturnValues returnValue = new ReturnValues();
 		List<FileReturnValue> files = new ArrayList<FileReturnValue>();
 		
-		Pageable paging = PageRequest.of(pageNum, 20);
+		Pageable paging = PageRequest.of(pageNum-1, 20);
 		Page<UploadedFileModel> entity = photoAndVideosDao.getFiles(1, paging);
 		List<UploadedFileModel> uploadedFiles =  null;
 		if(entity.hasContent()) {
@@ -119,8 +88,8 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 			for(UploadedFileModel model : uploadedFiles) {
 				FileReturnValue data = new FileReturnValue();
 				data.setFilePath(model.getFilePath());
-				data.setFileOwner(model.getUploadedBy().getName());
-				data.setOwnerProfilePath(model.getUploadedBy().getProfileUrl());
+				data.setFileOwner(model.getUploadedBy() == null?"":model.getUploadedBy().getName());
+				data.setOwnerProfilePath(model.getUploadedBy() == null?"":model.getUploadedBy().getProfileUrl());
 				
 				files.add(data);
 			}
@@ -142,8 +111,8 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 			for(UploadedFileModel model : entity) {
 				FileReturnValue data = new FileReturnValue();
 				data.setFilePath(model.getFilePath());
-				data.setFileOwner(model.getUploadedBy().getName());
-				data.setOwnerProfilePath(model.getUploadedBy().getProfileUrl());
+				data.setFileOwner(model.getUploadedBy() == null?"":model.getUploadedBy().getName());
+				data.setOwnerProfilePath(model.getUploadedBy() == null?"":model.getUploadedBy().getProfileUrl());
 				
 				files.add(data);
 			}
