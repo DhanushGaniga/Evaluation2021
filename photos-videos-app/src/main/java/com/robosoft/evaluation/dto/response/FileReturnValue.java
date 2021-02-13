@@ -54,5 +54,8 @@ public class FileReturnValue {
 	
 	/** The file. */
 	private String file;
+	
+	/** The file id. */
+	private Integer fileId;
 
 }

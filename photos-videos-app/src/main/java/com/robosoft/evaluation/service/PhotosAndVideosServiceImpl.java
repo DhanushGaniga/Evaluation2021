@@ -124,6 +124,7 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 				data.setFileOwner(model.getUploadedBy() == null?"":model.getUploadedBy().getName());
 				data.setOwnerProfilePath(model.getUploadedBy() == null?"":model.getUploadedBy().getProfileUrl());
 				data.setFileType("image/jpg");
+				data.setFileId(model.getId());
 				files.add(data);
 			}
 		}
@@ -154,11 +155,35 @@ public class PhotosAndVideosServiceImpl implements PhotosAndVideosService{
 				data.setFileOwner(model.getUploadedBy() == null?"":model.getUploadedBy().getName());
 				data.setOwnerProfilePath(model.getUploadedBy() == null?"":model.getUploadedBy().getProfileUrl());
 				data.setFileType("video/mp4");
+				data.setFileId(model.getId());
 				files.add(data);
 			}
 		}
 		returnValue.setFiles(files);
 		return commonServiceImpl.generateSuccessResponse(returnValue);
+	}
+
+	@Override
+	public ResponseEntity<GenericServerResponse> getTrendingVideos() {
+		FileReturnValue returnData = new FileReturnValue();
+		UploadedFileModel entity = photoAndVideosDao.getTrendingVideos();
+		if(entity == null) {
+			commonServiceImpl.generateSuccessResponse(returnData);
+		}
+		
+		returnData.setFilePath(entity.getFilePath());
+		returnData.setFileOwner(entity.getUploadedBy() == null?"":entity.getUploadedBy().getName());
+		returnData.setOwnerProfilePath(entity.getUploadedBy() == null?"":entity.getUploadedBy().getProfileUrl());
+		
+		if(entity.getFileType() == 1) {
+			returnData.setFileType("image/jpg");
+		}
+		else {
+			returnData.setFileType("video/mp4");
+		}
+		returnData.setFileId(entity.getId());
+		
+		return commonServiceImpl.generateSuccessResponse(returnData);
 	}
 	
 

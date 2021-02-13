@@ -103,5 +103,11 @@ public interface PhotoAndVideosDao {
 	 * @return the favourite
 	 */
 	List<UserFavouriteModel> getFavourite(String userId);
-
+	
+	/**
+	 * Gets the trending videos.
+	 *
+	 * @return the trending videos
+	 */
+	UploadedFileModel getTrendingVideos();
 }

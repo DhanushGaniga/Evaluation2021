@@ -32,7 +32,7 @@ public class ErrorCodes {
 	public static final String USER_NOT_FOUND_MESSAGE = "User not exist.";
 	
 	/** The Constant DB_OPERATION_FAILED_MESSAGE. */
-	public static final String DB_OPERATION_FAILED_MESSAGE = "Error while saving data to db." ;
+	public static final String DB_OPERATION_FAILED_MESSAGE = "Error in db operation" ;
 	
 	/** The Constant USER_SIGN_UP_MESSAGE. */
 	public static final String USER_SIGN_UP_MESSAGE = "User registered successfully." ;

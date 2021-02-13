@@ -48,5 +48,12 @@ public interface PhotosAndVideosService {
 	 * @return the videos
 	 */
 	ResponseEntity<GenericServerResponse> getVideos(String id, int pageNum);
+	
+	/**
+	 * Gets the trending videos.
+	 *
+	 * @return the trending videos
+	 */
+	ResponseEntity<GenericServerResponse> getTrendingVideos();
 
 }

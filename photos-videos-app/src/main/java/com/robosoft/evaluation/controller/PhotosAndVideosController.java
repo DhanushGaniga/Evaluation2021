@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.robosoft.evaluation.dto.request.LoginData;
 import com.robosoft.evaluation.dto.request.RegistrationDto;
 import com.robosoft.evaluation.dto.response.GenericServerResponse;
+import com.robosoft.evaluation.dto.response.ReturnValues;
 import com.robosoft.evaluation.service.PhotosAndVideosServiceImpl;
 import com.robosoft.evaluation.service.UserService;
 
@@ -73,7 +74,7 @@ public class PhotosAndVideosController {
 	 * @param pageNum the page num
 	 * @return the photos
 	 */
-	@ApiOperation(value = "get Photos api", response = GenericServerResponse.class)
+	@ApiOperation(value = "get Photos api", response = ReturnValues.class)
 	@GetMapping(value = "/getPhotos")
 	public ResponseEntity<GenericServerResponse> getPhotos(@RequestParam String id, @RequestParam int pageNum){	
 		return photosAndVideosService.getPhotos(id, pageNum);	
@@ -86,7 +87,7 @@ public class PhotosAndVideosController {
 	 * @param pageNum the page num
 	 * @return the videos
 	 */
-	@ApiOperation(value = "get video api", response = GenericServerResponse.class)
+	@ApiOperation(value = "get video api", response = ReturnValues.class)
 	@GetMapping(value = "/getVideos")
 	public ResponseEntity<GenericServerResponse> getVideos(@RequestParam String id,  @RequestParam int pageNum){	
 		return photosAndVideosService.getVideos( id, pageNum);	
@@ -152,11 +153,23 @@ public class PhotosAndVideosController {
 	 * @param userId the user id
 	 * @return the favourite
 	 */
-	@ApiOperation(value = "get favourite api", response = GenericServerResponse.class)
-	@PostMapping(value="/addfavourites")
+	@ApiOperation(value = "get favourite api", response = ReturnValues.class)
+	@PostMapping(value="/getfavourites")
 	public ResponseEntity<GenericServerResponse> getFavourite(@RequestParam String userId)
 	{
 		return userService.getToFavourite(userId);
+	}
+	
+	/**
+	 * Gets the trending videos.
+	 *
+	 * @return the trending videos
+	 */
+	@ApiOperation(value = "get trending videos api", response = GenericServerResponse.class)
+	@PostMapping(value="/getTrendingVideos")
+	public ResponseEntity<GenericServerResponse> getTrendingVideos()
+	{
+		return photosAndVideosService.getTrendingVideos();
 	}
 	
 }

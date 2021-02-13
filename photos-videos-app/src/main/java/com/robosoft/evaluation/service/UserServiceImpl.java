@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService{
 			else {
 				data.setFileType("video/mp4");
 			}
-			
+			data.setFileId(entity.getFiles().getId());
 			files.add(data);
 		}
 		returnValue.setFiles(files);
